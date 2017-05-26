@@ -6,12 +6,18 @@ A pure JavaScript written transformable image component, like PhotoView or Image
 
 
 
-Written in pure JS, this component should be one of the most easy to use component among all the zoomable, scrollable PhotoView alike views on react-native. 
+Written in pure JS, this component should be one of the most easy to use component among all the zoomable, scrollable PhotoView alike views on react-native.
 
 ## Install
 
  `npm install --save react-native-transformable-image@latest`
 
+
+### Required installation for `cache={true}` only
+
+### react-native-fetch-blob
+This package has a dependency with [react-native-fetch-blob](https://github.com/wkh237/react-native-fetch-blob).
+If your project doesn't have a dependency with this package already, please refer to [their installation instructions](https://github.com/wkh237/react-native-fetch-blob#user-content-installation).
 
 
 ## Usage
@@ -38,7 +44,7 @@ You can provide `enableTransform`, `enableScale` and `enableTranslate`  props to
 
 #### Other props
 
-* `onTransformGestureReleased` and `onViewTransformed`: 
+* `onTransformGestureReleased` and `onViewTransformed`:
 
 ​	inherited from [react-native-view-transformer](https://github.com/ldn0x7dc/react-native-view-transformer)
 

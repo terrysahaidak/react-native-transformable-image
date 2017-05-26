@@ -2,6 +2,9 @@
 
 import React, { Component, PropTypes } from 'react';
 import { Image } from 'react-native';
+import { CustomCachedImage } from 'react-native-img-cache';
+import ImageProgress from 'react-native-image-progress';
+import ProgressBar from 'react-native-progress/Bar';
 
 import ViewTransformer from 'react-native-view-transformer';
 
@@ -24,13 +27,17 @@ export default class TransformableImage extends Component {
     enableTranslate: PropTypes.bool,
     onSingleTapConfirmed: PropTypes.func,
     onTransformGestureReleased: PropTypes.func,
-    onViewTransformed: PropTypes.func
+    onViewTransformed: PropTypes.func,
+    cache: PropTypes.bool,
+    progressBar: PropTypes.bool
   };
 
   static defaultProps = {
     enableTransform: true,
     enableScale: true,
-    enableTranslate: true
+    enableTranslate: true,
+    cache: false,
+    progressBar: false
   };
 
   constructor(props) {
@@ -99,14 +106,27 @@ export default class TransformableImage extends Component {
         contentAspectRatio={contentAspectRatio}
         onLayout={this.onLayout.bind(this)}
         style={this.props.style}>
-        <Image
-          {...this.props}
-          style={[this.props.style, {backgroundColor: 'transparent'}]}
-          resizeMode={'contain'}
-          onLoadStart={this.onLoadStart.bind(this)}
-          onLoad={this.onLoad.bind(this)}
-          capInsets={{left: 0.1, top: 0.1, right: 0.1, bottom: 0.1}} //on iOS, use capInsets to avoid image downsampling
-        />
+        { this.props.cache ?
+          <CustomCachedImage
+            {...this.props}
+            component={this.props.progressBar && ImageProgress}
+            indicator={this.props.progressBar && ProgressBar}
+            style={[this.props.style, {backgroundColor: 'transparent'}]}
+            resizeMode={'contain'}
+            onLoadStart={this.onLoadStart.bind(this)}
+            onLoad={this.onLoad.bind(this)}
+            capInsets={{left: 0.1, top: 0.1, right: 0.1, bottom: 0.1}} //on iOS, use capInsets to avoid image downsampling
+          />
+          :
+          <Image
+            {...this.props}
+            style={[this.props.style, {backgroundColor: 'transparent'}]}
+            resizeMode={'contain'}
+            onLoadStart={this.onLoadStart.bind(this)}
+            onLoad={this.onLoad.bind(this)}
+            capInsets={{left: 0.1, top: 0.1, right: 0.1, bottom: 0.1}} //on iOS, use capInsets to avoid image downsampling
+          />
+        }
       </ViewTransformer>
     );
   }
