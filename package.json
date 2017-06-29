@@ -21,6 +21,6 @@
     "react-native-image-progress": "^0.6.0",
     "react-native-img-cache": "^1.4.0",
     "react-native-progress": "^3.2.1",
-    "react-native-view-transformer": "0.0.28"
+    "react-native-view-transformer": "github:convoyinc/react-native-view-transformer#f7e028b"
   }
 }
